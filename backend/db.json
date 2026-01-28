@@ -1,0 +1,56 @@
+{
+  "polls": [
+    {
+      "id": 1769604656486,
+      "question": "Lets go for picnic!",
+      "isActive": true,
+      "createdAt": "2026-01-28T12:50:56.486Z"
+    },
+    {
+      "id": 1769625197435,
+      "question": "hlihlhlhlk",
+      "isActive": true,
+      "createdAt": "2026-01-28T18:33:17.435Z"
+    }
+  ],
+  "options": [
+    {
+      "id": 1769604656487,
+      "pollId": 1769604656486,
+      "text": "Yes",
+      "votes": 1
+    },
+    {
+      "id": 1769604656488,
+      "pollId": 1769604656486,
+      "text": "Sorry",
+      "votes": 1
+    },
+    {
+      "id": 1769625197436,
+      "pollId": 1769625197435,
+      "text": "bjbjb",
+      "votes": 0
+    },
+    {
+      "id": 1769625197437,
+      "pollId": 1769625197435,
+      "text": "bnbnbnb",
+      "votes": 0
+    }
+  ],
+  "votes": [
+    {
+      "id": 1769623458889,
+      "pollId": 1769604656486,
+      "optionId": 1769604656488,
+      "votedAt": "2026-01-28T18:04:18.889Z"
+    },
+    {
+      "id": 1769625349037,
+      "pollId": 1769604656486,
+      "optionId": 1769604656487,
+      "votedAt": "2026-01-28T18:35:49.037Z"
+    }
+  ]
+}
