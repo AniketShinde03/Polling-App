@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -34,7 +34,7 @@ const PollDetail = () => {
   const [submitting, setSubmitting] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
-  const fetchPoll = async () => {
+  const fetchPoll = useCallback(async () => {
     setLoading(true);
     try {
       const res = await getPollDetails(id);
@@ -46,11 +46,11 @@ const PollDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchPoll();
-  }, [id]);
+  }, [id, fetchPoll]);
 
   const handleVote = async () => {
     if (!selectedOption) {
@@ -174,7 +174,7 @@ const PollDetail = () => {
               <FormControl component="fieldset" fullWidth disabled={hasVoted}>
                 <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
                   <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                    {options.map((option, index) => (
+                    {options.map((option) => (
                       <Box
                         key={option.id}
                         sx={{

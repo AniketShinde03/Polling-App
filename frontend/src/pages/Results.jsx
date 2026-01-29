@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -27,7 +27,7 @@ const Results = () => {
   const [loading, setLoading] = useState(true);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
-  const fetchResults = async () => {
+  const fetchResults = useCallback(async () => {
     setLoading(true);
     try {
       const res = await getPollResults(id);
@@ -39,11 +39,11 @@ const Results = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchResults();
-  }, [id]);
+  }, [id, fetchResults]);
 
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
@@ -153,7 +153,7 @@ const Results = () => {
               </Box>
 
               {/* Results Visualization */}
-              <Box>
+              <Box sx={{ pt: 2 }}>
                 {options.length > 0 ? (
                   options
                     .sort((a, b) => b.votes - a.votes)
@@ -166,7 +166,9 @@ const Results = () => {
                           key={option.id}
                           sx={{
                             mb: 3,
-                            p: 3,
+                            pt: 4,
+                            pb: 3,
+                            px: 3,
                             borderRadius: 3,
                             background: isWinner
                               ? "linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%)"
@@ -174,7 +176,6 @@ const Results = () => {
                             border: "2px solid",
                             borderColor: isWinner ? "success.main" : "rgba(0, 0, 0, 0.05)",
                             position: "relative",
-                            overflow: "hidden",
                             transition: "all 0.3s ease",
                             "&:hover": {
                               transform: "translateX(4px)",
@@ -186,7 +187,7 @@ const Results = () => {
                           <Box
                             sx={{
                               position: "absolute",
-                              top: -8,
+                              top: 8,
                               left: 16,
                               background: isWinner ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                               color: "white",
@@ -205,7 +206,7 @@ const Results = () => {
                           </Box>
 
                           {/* Option Header */}
-                          <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} mt={1}>
+                          <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} mt={2}>
                             <Typography variant="h6" fontWeight={600} color="text.primary">
                               {option.text}
                             </Typography>

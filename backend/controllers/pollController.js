@@ -1,5 +1,4 @@
-import { create } from "domain";
-import fs, { readFile } from "fs";
+import fs from "fs";
 
 export const getAllPolls = (req, res) => {
     fs.readFile("db.json", "utf-8", (err, data) => {
@@ -91,6 +90,8 @@ export const votePoll = (req, res) => {
     return res.status(400).json({ message: "Option ID is required" });
   }
 
+  const parsedOptionId = parseInt(optionId);
+
   fs.readFile("db.json", "utf-8", (err, data) => {
     if (err) {
       return res.status(500).json({ message: "Error reading data" });
@@ -105,7 +106,7 @@ export const votePoll = (req, res) => {
     
     
     const option = jsonData.options.find(
-      opt => opt.id === optionId && opt.pollId === pollId
+      opt => opt.id === parsedOptionId && opt.pollId === pollId
     );
 
     if (!option) {
@@ -118,7 +119,7 @@ export const votePoll = (req, res) => {
     jsonData.votes.push({
       id: Date.now(),
       pollId,
-      optionId,
+      optionId: parsedOptionId,
       votedAt: new Date().toISOString()
     });
     

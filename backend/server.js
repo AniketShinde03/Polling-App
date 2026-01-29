@@ -6,7 +6,7 @@ import pollRoutes from "./routes/pollRoutes.js";
 const app = express();
 
 // allow CORS for frontend (development)
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: ["http://localhost:5173", "http://localhost:5174"] }));
 app.use(express.json());
 
 // connect routes
